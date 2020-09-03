@@ -156,5 +156,13 @@ int main( int argc, char* argv[ ] )
 
   printf( "Time: %s", ctime( ( const time_t* ) &txTm ) );
 
+  // If the linux has a ntp client running, please close it by exec "datetimectl set-ntp false" before running this ntp client.
+  // The code as follow will set system time from ntp server. (host_name) 
+  int ret;
+  ret = stime(&txTm);
+  if (ret != 0) {
+    perror("stime");
+  }
+
   return 0;
 }
